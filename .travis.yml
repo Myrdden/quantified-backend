@@ -1,16 +1,15 @@
 language: node_js
 node_js:
-  - "stable"
+- stable
 install:
-  - npm ci
+- npm ci
 cache:
   directories:
-    - "$/.npm"
+  - "$/.npm"
 deploy:
   provider: heroku
   api_key:
-    secure: bEdBLPDuZW7wnVTSphz/PQXC90omkSSGETwxda1SrK9c1bG6Xhh52R1pmd7KkytTMTkFDOdZz/ywza4ojMp9TTOyZRbLNoSJU2l5TWMRwTsNUXuuwBmIrGpXx8p1DtpcZgsgdiiBopd86IcUd7YYCff9gFTPurgt3iWVI1oVbEiHk3SvragZu3K5bqvXqb4YBAMQJ9SXYpyau52B1aB3YxwQ6n1ilAQMYkIDUbUleSLhGsGZqqln+4J6rTj+gsX+0GHHI1toJQDNs90kgGHy8un4yiHJFs753H8fyvatlme4ie/eKDFiXo/8XqFzntBLfNI6RcrgBUtpwAc4wM/bF5XNdjup2lP5keLODzuDF5TQ6hX8n+Dc2DjF99nFFAClxgPo/boZMHad0An7zF8NKD/vnwL4gi5x5vlIONCsAlaqjgxDMbwgwEmB6/wC1+oyk5sNfIE3Esm8mh4O6EMS2iWzwgf/kEb0ZS15IEw/p4Ik90aq2pjHvqXymmsgXsPvYnXGhVanvHQ/PBZvjSoE3DeD0YxQ1MtjMvPTuEEOED+LXZx3Ej0CcF8R+bz4jw0h3uFvVcNH95sP3TYLczMKR4xFFx33vwzUSNW1PUnvjeklF7XSDpRXceHZjMurrWixVaihW/gcD0iAf205vqYROZ4yklDuTTVAevWYSZqWmrQ=
+    secure: kcnC/oRqmk0lUuPVZyHn6waUV++69aZ4Vaj9uxhQquXv0RFN+Yji90rRtfKtblyjEkIUuLAVY2x2qf0RnhfSJTlraz9g+WSERfndcprv9rlwwzqpbwc8zHd93qk1GWi23IOzzpY8JWc0T9IKcjzLeN7Gu0H/YvPxC02IAbQvXdLiy/VjZaSHAwUv1Zqok4/KY+E+9hyYv/utaBn0FdB3eYiO+8gq2abrccLRAozSv0TX7RUCyw7TSIx0Rf7BlJGislIVL/dgefMJRxfgKPrS4Qd8Wo+f3Zb8qMUJ0WviYj14Ny8gtD9SQOny4Ix17b0Me9vOZtY5iL7tZ+i9IDmmWy56Lsv2kjsFZocoMdkXKPo9vSbhtEXK4iwGfhcLJ0IJaVwa5WIUWZz1EUSCK2wNBs8t8jDxZX7v2KFST52NU+C5xjR/CrEIjvjR/YfrqpMnjXfYA7Z3zU/N13imv9AOCXqxLqgBvWDRnnYModnoQKP8b+x4mHb5vDSbCl0cHKl7Bc6g/oul5YSvUG5CwlzuruJVEN9DoUvxW2ThLU3Xhhq0k/kl1eLiSJg4ePMuo+JXrB96tU8HuUMJRt4RIMjQm21PphSWaURS8bGtoEJnQwZ9LAnow/04xXKzHaDCmBLernhEgBkCMfEa7HKfEBOeF02/uLxdhbi73Xyipf5/PEY=
   app: this-quantified-backend
   on:
     repo: Myrdden/quantified-backend
-
