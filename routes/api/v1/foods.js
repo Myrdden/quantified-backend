@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
   })
 });
 
-router.post("/", function(req, res, next) {
+router.post("/", function(req, res) {
   res.setHeader("Content-Type", "application/json");
   Food.create({
           name: req.body.name,
