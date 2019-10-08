@@ -9,8 +9,8 @@ router.get("/", function(req, res, next) {
     res.status(200).send(JSON.stringify(foods));
   })
   .catch(error => {
-    res.status(500).send({error})
-  });
+    res.status(500).send(JSON.stringify(error));
+  })
 });
 
 router.get('/:id', (req, res) => {
@@ -40,6 +40,20 @@ router.patch('/:id', (req, res) => {
     }
   })
   .catch(error => res.status(500).send(JSON.stringify(error)));
+});
+
+router.post("/", function(req, res) {
+  res.setHeader("Content-Type", "application/json");
+  Food.create({
+          name: req.body.name,
+          calories: req.body.calories,
+    })
+    .then(food => {
+      res.status(201).send(JSON.stringify(food));
+    })
+    .catch(error => {
+      res.status(500).send(JSON.stringify(error));
+    })
 });
 
 module.exports = router;
