@@ -30,12 +30,20 @@ describe('api', () => {
     });
   });
 
-  test('GET /api/v1/foods/:id', () => {
+  test('GET /api/v1/foods/:id Happy', () => {
     return request(app).get('/api/v1/foods/1')
     .then(rsp => {
       expect(rsp.status).toBe(200);
       expect(Object.keys(rsp.body)).toContain('name');
       expect(Object.keys(rsp.body)).toContain('calories');
+    });
+  });
+
+  test('GET /api/v1/foods/:id Sad', () => {
+    return request(app).get('/api/v1/foods/9999')
+    .then(rsp => {
+      expect(rsp.status).toBe(404);
+      expect(rsp.body.error).toBe('Food with ID(9999) not found.');
     });
   });
 });
