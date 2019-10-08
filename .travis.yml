@@ -6,6 +6,8 @@ install:
 cache:
   directories:
   - "$/.npm"
+services:
+  - postgresql
 deploy:
   provider: heroku
   api_key:
