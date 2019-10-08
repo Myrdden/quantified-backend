@@ -11,3 +11,5 @@ router.get('/foods/:id', (req, res) => {
     res.status(404).send();
   })
 });
+
+module.exports = router;
