@@ -15,14 +15,9 @@ describe('api', () => {
   });
 
   describe('Test GET /api/v1/foods path', () => {
-    test('should return a 200 status', () => {
-      return request(app).get("/api/v1/foods").then(response => {
-        expect(response.status).toBe(200);
-      });
-    });
-
     test('should return an array of food objects', () => {
       return request(app).get("/api/v1/foods").then(response => {
+        expect(response.status).toBe(200);
         expect(response.body.length).toEqual(4);
         expect(Object.keys(response.body[0])).toContain('name');
         expect(Object.keys(response.body[0])).toContain('calories');
@@ -44,6 +39,19 @@ describe('api', () => {
     .then(rsp => {
       expect(rsp.status).toBe(404);
       expect(rsp.body.error).toBe('Food with ID(9999) not found.');
+    });
+  });
+
+  describe('POST /api/v1/foods', () => {
+    test('User should post to db and api key returned', () => {
+      return request(app).post('/api/v1/foods')
+      .send({ "food": { "name": "icecream", "calories": 450} })
+      .set('Accept', 'application/json')
+      .then(res => {
+        expect(function(res){
+          res.body.food = "icecream";
+        expect(res.status).toBe(201)});
+      })
     });
   });
 });
