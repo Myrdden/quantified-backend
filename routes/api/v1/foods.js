@@ -5,10 +5,14 @@ router.get('/foods/:id', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   Food.findOne({where: {id: req.params.id}})
   .then(food => {
-    res.status(200).send(JSON.stringify(food));
+    if(food){
+      res.status(200).send(JSON.stringify(food));
+    } else {
+      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+    }
   })
   .catch(error => {
-    res.status(404).send();
+    res.status(500).send(JSON.stringify(error));
   })
 });
 
