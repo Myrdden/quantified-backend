@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/v1', foodsRouter);
+app.use('/api/v1/foods', foodsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
