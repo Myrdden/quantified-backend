@@ -36,7 +36,6 @@ describe('api', () => {
 
   test('GET /api/v1/foods/:id Sad', () => {
     return request(app).get('/api/v1/foods/9999')
-    .send()
     .then(rsp => {
       expect(rsp.status).toBe(404);
       expect(rsp.body.error).toBe('Food with ID(9999) not found.');
