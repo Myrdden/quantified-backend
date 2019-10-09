@@ -26,14 +26,27 @@ describe('Model Tests', () => {
       expect(foundFood.name).toBe('chicken sandwich');
       expect(foundFood.calories).toBe(700);
     });
-    test('CREATE', () => {
-
+    test('CREATE', async () => {
+      let createdFood = await Food.create({id: 1234, name: 'yeetfruit', calories: 9001});
+      let allFoods = await Food.findAll();
+      expect(createdFood.id).toBe(1234);
+      expect(createdFood.name).toBe('yeetfruit');
+      expect(createdFood.calories).toBe(9001);
+      expect(allFoods.length).toBe(5);
+      await Food.destroy({where: {id: 1234}});
     });
-    test('UPDATE', () => {
-
+    test('UPDATE', async () => {
+      await Food.create({id: 1234, name: 'yeetfruit', calories: 9001});
+      await Food.update({calories: 2}, {where: {id: 1234}});
+      let testFood = await Food.findOne({where: {id: 1234}});
+      expect(testFood.calories).toBe(2);
+      await Food.destroy({where: {id: 1234}});
     });
-    test('DELETE', () => {
-
+    test('DELETE', async () => {
+      await Food.destroy({where: {id: 1}});
+      let allFoods = await Food.findAll();
+      expect(allFoods.length).toBe(3);
+      await Food.create({id: 1, name: 'banana', calories: 150});
     });
   });
 });
