@@ -34,7 +34,7 @@ router.patch('/:id', (req, res) => {
     }, {where: {id: req.params.id}, returning: true})
   .then(([row, [food]]) => {
     if (row == 1) {
-      res.status(200).send(JSON.stringify({food}));
+      res.status(200).send(JSON.stringify(food));
     } else {
       res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
     }
