@@ -51,7 +51,17 @@ describe('api', () => {
         expect(function(res){
           res.body.food = "icecream";
         expect(res.status).toBe(201)});
-      })
+      });
+    });
+  });
+
+  test('PATCH /api/v1/foods/:id Happy', () => {
+    return request(app).patch('/api/v1/foods/1')
+    .send({name: 'bleh'})
+    .then(rsp => {
+      expect(rsp.status).toBe(200);
+      expect(Object.keys(rsp.body)).toContain('name');
+      expect(Object.keys(rsp.body)).toContain('calories');
     });
   });
 });

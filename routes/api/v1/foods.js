@@ -23,9 +23,23 @@ router.get('/:id', (req, res) => {
       res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
     }
   })
-  .catch(error => {
-    res.status(500).send(JSON.stringify(error));
+  .catch(error => res.status(500).send(JSON.stringify(error)));
+});
+
+router.patch('/:id', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  Food.update(
+    {name: req.body.name,
+      calories: req.body.calories
+    }, {where: {id: req.params.id}, returning: true})
+  .then(([row, [food]]) => {
+    if (row == 1) {
+      res.status(200).send(JSON.stringify(food));
+    } else {
+      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+    }
   })
+  .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
 router.post("/", function(req, res) {
