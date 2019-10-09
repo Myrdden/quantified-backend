@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Meal.associate = function(models) {
-    Meal.belongsToMany(models.Food, { through: 'MealFoods' );
+    Meal.belongsToMany(models.Food, { through: 'MealFoods' });
   };
   return Meal;
 };
