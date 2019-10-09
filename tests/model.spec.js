@@ -21,8 +21,10 @@ describe('Model Tests', () => {
       expect(allTheFoods[0].name).toBe('banana');
       expect(allTheFoods[0].calories).toBe(150);
     });
-    test('FIND ONE', () => {
-
+    test('FIND ONE', async () => {
+      let foundFood = await Food.findOne({where: {id: 3}});
+      expect(foundFood.name).toBe('chicken sandwich');
+      expect(foundFood.calories).toBe(700);
     });
     test('CREATE', () => {
 
