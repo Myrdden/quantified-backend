@@ -26,7 +26,7 @@ describe('api', () => {
   });
 
   test('GET /api/v1/foods/:id Happy', () => {
-    return request(app).get('/api/v1/foods/1')
+    return request(app).get('/api/v1/foods/3')
     .then(rsp => {
       expect(rsp.status).toBe(200);
       expect(Object.keys(rsp.body)).toContain('name');
@@ -62,6 +62,20 @@ describe('api', () => {
       expect(rsp.status).toBe(200);
       expect(Object.keys(rsp.body)).toContain('name');
       expect(Object.keys(rsp.body)).toContain('calories');
+    });
+  });
+
+  test('DELETE /api/v1/foods/:id Happy', () => {
+    return request(app).delete('/api/v1/foods/1')
+    .then(rsp => {
+      expect(rsp.status).toBe(204);
+    });
+  });
+
+  test('DELETE /api/v1/foods/:id Sad', () => {
+    return request(app).delete('/api/v1/foods/323424')
+    .then(rsp => {
+      expect(rsp.status).toBe(404);
     });
   });
 });

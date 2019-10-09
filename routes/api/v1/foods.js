@@ -45,15 +45,24 @@ router.patch('/:id', (req, res) => {
 router.post("/", function(req, res) {
   res.setHeader("Content-Type", "application/json");
   Food.create({
-          name: req.body.name,
-          calories: req.body.calories,
-    })
-    .then(food => {
-      res.status(201).send(JSON.stringify(food));
-    })
-    .catch(error => {
-      res.status(500).send(JSON.stringify(error));
-    })
+    name: req.body.name,
+    calories: req.body.calories,
+  })
+  .then(food => res.status(201).send(JSON.stringify(food)))
+  .catch(error => res.status(500).send(JSON.stringify(error)));
+});
+
+router.delete('/:id', (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  Food.destroy({where: {id: req.params.id}})
+  .then(row => {
+    if (row == 1) {
+      res.status(204).send()
+    } else {
+      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+    }
+  })
+  .catch(error => res.status(500).send({error}));
 });
 
 module.exports = router;
