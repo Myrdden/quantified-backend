@@ -71,4 +71,11 @@ describe('api', () => {
       expect(rsp.status).toBe(204);
     });
   });
+
+  test('DELETE /api/v1/foods/:id Sad', () => {
+    return request(app).delete('/api/v1/foods/323424')
+    .then(rsp => {
+      expect(rsp.status).toBe(404);
+    });
+  });
 });
