@@ -5,6 +5,8 @@
 
 ### Project Board
 
+[Click Here to see the Quantifed Self Project Board](https://github.com/Myrdden/quantified-backend/projects/1)
+
 
 ### Initial Setup
 
@@ -22,6 +24,9 @@
 
 
 ### Core Contributors
+
+- [Aurie Gochenour](https://github.com/Myrdden)
+- [Jori Peterson](https://github.com/JoriPeterson)
 
 
 ### Tech Stack List

@@ -1,18 +1,20 @@
 var shell = require('shelljs');
 var request = require("supertest");
 var app = require('../app');
+const Meal = require('../models').Meal
+const Food = require('../models').Food
 
 describe('api', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:create');
+  shell.exec('npx sequelize db:create --env test')
+  shell.exec('npx sequelize db:migrate --env test')
+  shell.exec('npx sequelize db:seed:all --env test')
+});
+
+afterAll(() => {
+  shell.exec('npx sequelize db:migrate:undo:all --env test')
   });
-  beforeEach(() => {
-      shell.exec('npx sequelize db:migrate');
-      shell.exec('npx sequelize db:seed:all');
-    });
-  afterEach(() => {
-    shell.exec('npx sequelize db:migrate:undo:all');
-  });
+
 
   describe('Test GET /api/v1/foods path', () => {
     test('should return an array of food objects', () => {
@@ -78,4 +80,21 @@ describe('api', () => {
       expect(rsp.status).toBe(404);
     });
   });
-});
+
+  describe("MealFoods", () => {
+    test("Find foods associated with meals", async () => {
+      items = [
+        await Food.create({ name: "hashbrowns", calories: 300}),
+        await Food.create({ name: "bacon", calories: 500})
+      ]
+      let meal = await Meal.create({name: 'breakfast'});
+      await meal.addFoods(items);
+      let results = await meal.getFoods();
+      expect(results[0].name).toBe("hashbrowns")
+      expect(results[0].calories).toBe(300)
+      expect(results[1].name).toBe("bacon")
+      expect(results[1].calories).toBe(500)
+      expect(results[1].name).not.toBe("potato chips")
+    })
+  });
+})
