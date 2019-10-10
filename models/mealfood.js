@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const MealFoods = sequelize.define('MealFoods', {
-    foodId: {
+    FoodId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    mealId: {
+    MealId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
