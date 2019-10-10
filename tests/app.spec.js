@@ -87,18 +87,14 @@ afterAll(() => {
         await Food.create({ name: "hashbrowns", calories: 300}),
         await Food.create({ name: "bacon", calories: 500})
       ]
-      return Meal.create({ name: "breakfast" }).then(async meal => {
-        console.log(meal)
-        await meal.addFoods(items)
-        await meal.getFoods().then(results => {
-          console.log(results)
-        expect(results[0].name).toBe("hashbrowns")
-        expect(results[0].calories).toBe(300)
-        expect(results[1].name).toBe("bacon")
-        expect(results[1].calories).toBe(500)
-        expect(results[1].name).not.toBe("potato chips")
-        })
-      })
-    });
-  })
-});
+      let meal = await Meal.create({name: 'breakfast'});
+      await meal.addFoods(items);
+      let results = await meal.getFoods();
+      expect(results[0].name).toBe("hashbrowns")
+      expect(results[0].calories).toBe(300)
+      expect(results[1].name).toBe("bacon")
+      expect(results[1].calories).toBe(500)
+      expect(results[1].name).not.toBe("potato chips")
+    })
+  });
+})
