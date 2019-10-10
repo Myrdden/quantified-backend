@@ -128,7 +128,7 @@ afterAll(() => {
     });
 
     test('POST /api/v1/meals/:meal/foods/:food', () => {
-      return request(app).get('/api/v1/meals/1/foods/4')
+      return request(app).post('/api/v1/meals/1/foods/4')
       .then(rsp => {
         expect(rsp.status).toBe(201);
       });
