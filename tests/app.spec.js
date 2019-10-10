@@ -88,13 +88,34 @@ afterAll(() => {
         await Food.create({ name: "bacon", calories: 500})
       ]
       let meal = await Meal.create({name: 'breakfast'});
-      await meal.addFoods(items);
-      let results = await meal.getFoods();
+      await meal.addFood(items);
+      let results = await meal.getFood();
       expect(results[0].name).toBe("hashbrowns")
       expect(results[0].calories).toBe(300)
       expect(results[1].name).toBe("bacon")
       expect(results[1].calories).toBe(500)
       expect(results[1].name).not.toBe("potato chips")
     })
+  });
+
+
+
+  describe("Meals", () => {
+    test('GET /api/v1/meals/:id Happy', () => {
+      return request(app).get('/api/v1/meals/3')
+      .then(rsp => {
+        expect(rsp.status).toBe(200);
+        expect(Object.keys(rsp.body)).toContain('name');
+        expect(Object.keys(rsp.body)).toContain('Food');
+      });
+    });
+
+    test('GET /api/v1/meals/:id Sad', () => {
+      return request(app).get('/api/v1/meals/9999')
+      .then(rsp => {
+        expect(rsp.status).toBe(404);
+        expect(rsp.body.error).toBe('Meal with ID(9999) not found.');
+      });
+    });
   });
 })
