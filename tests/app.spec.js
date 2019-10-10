@@ -98,11 +98,20 @@ afterAll(() => {
     })
   });
 
-
+  describe("Get all meals", () => {
+    test("GET /api/v1/meals", async () => {
+      return request(app).get('/api/v1/meals')
+        .then(rsp => {
+        expect(rsp.status).toBe(200);
+        expect(Object.keys(rsp.body[0])).toContain('name');
+        expect(Object.keys(rsp.body[0])).toContain('Food');
+      })
+    });
+  })
 
   describe("Meals", () => {
-    test('GET /api/v1/meals/:id Happy', () => {
-      return request(app).get('/api/v1/meals/3')
+    test('GET /api/v1/meals/:id/foods Happy', () => {
+      return request(app).get('/api/v1/meals/3/foods')
       .then(rsp => {
         expect(rsp.status).toBe(200);
         expect(Object.keys(rsp.body)).toContain('name');
@@ -110,8 +119,8 @@ afterAll(() => {
       });
     });
 
-    test('GET /api/v1/meals/:id Sad', () => {
-      return request(app).get('/api/v1/meals/9999')
+    test('GET /api/v1/meals/:id/foods Sad', () => {
+      return request(app).get('/api/v1/meals/9999/foods')
       .then(rsp => {
         expect(rsp.status).toBe(404);
         expect(rsp.body.error).toBe('Meal with ID(9999) not found.');
