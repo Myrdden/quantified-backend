@@ -14,7 +14,7 @@ router.get('/:id', (req, res) => {
     if(meal){
       res.status(200).send(JSON.stringify(meal));
     } else {
-      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      res.status(404).send(JSON.stringify({error: "Meal with ID(" + req.params.id + ") not found."}));
     }
   })
   .catch(error => res.status(500).send(JSON.stringify(error)));
