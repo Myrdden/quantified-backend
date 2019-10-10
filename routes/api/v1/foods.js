@@ -1,7 +1,8 @@
-var router = require('express').Router();
-var Food = require('../../../models').Food;
+const router = require('express').Router();
+const Food = require('../../../models').Food;
+const MealFoods = require('../../../models').MealFoods;
 
-router.get("/", function(req, res, next) {
+router.get("/", (req, res) => {
   res.setHeader("Content-type", "application/json")
 
   Food.findAll()
@@ -42,7 +43,7 @@ router.patch('/:id', (req, res) => {
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   Food.create({
     name: req.body.name,
@@ -54,13 +55,17 @@ router.post("/", function(req, res) {
 
 router.delete('/:id', (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  Food.destroy({where: {id: req.params.id}})
-  .then(row => {
-    if (row == 1) {
-      res.status(204).send()
-    } else {
-      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
-    }
+  MealFoods.destroy({where: {FoodId: req.params.id}})
+  .then(() => {
+    Food.destroy({where: {id: req.params.id}})
+    .then(row => {
+      if (row == 1) {
+        res.status(204).send()
+      } else {
+        res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      }
+    })
+    .catch(error => res.status(500).send({error}));
   })
   .catch(error => res.status(500).send({error}));
 });
