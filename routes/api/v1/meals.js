@@ -3,7 +3,21 @@ const models = require('../../../models');
 const Meal = models.Meal;
 const Food = models.Food;
 
-router.get('/:id', (req, res) => {
+router.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  Meal.findAll({
+    attributes: ["id", "name"],
+    include: [{
+      model: Food, through: { attributes: []}}
+    ]
+  })
+  .then(meals => {
+    res.status(200).send(JSON.stringify(meals));
+  })
+  .catch(error => res.status(500).send(JSON.stringify(error)));
+});
+
+router.get('/:id/foods', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   Meal.findOne({
     where: {id: req.params.id},
@@ -21,4 +35,3 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
-
