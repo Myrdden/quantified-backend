@@ -88,8 +88,8 @@ afterAll(() => {
         await Food.create({ name: "bacon", calories: 500})
       ]
       let meal = await Meal.create({name: 'breakfast'});
-      await meal.addFoods(items);
-      let results = await meal.getFoods();
+      await meal.addFood(items);
+      let results = await meal.getFood();
       expect(results[0].name).toBe("hashbrowns")
       expect(results[0].calories).toBe(300)
       expect(results[1].name).toBe("bacon")
