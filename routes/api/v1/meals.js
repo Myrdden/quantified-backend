@@ -2,6 +2,7 @@ const router = require('express').Router();
 const models = require('../../../models');
 const Meal = models.Meal;
 const Food = models.Food;
+const MealFoods = models.MealFoods;
 
 router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -33,5 +34,23 @@ router.get('/:id/foods', (req, res) => {
   })
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
+
+router.delete('/:meal_id/foods/:id', (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  MealFoods.destroy({
+    where: {
+      MealId: req.params.meal_id,
+      FoodId: req.params.id
+    }
+  })
+    .then(row => {
+      if (row == 1) {
+        res.status(204).send()
+      } else {
+        res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      }
+    })
+    .catch(error => res.status(500).send({error}));
+})
 
 module.exports = router;
