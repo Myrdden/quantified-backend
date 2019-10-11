@@ -2,7 +2,7 @@ const router = require('express').Router();
 const models = require('../../../models');
 const Meal = models.Meal;
 const Food = models.Food;
-const MealFoods = models.MealFoods;
+const MealFood = models.MealFoods;
 
 router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -22,9 +22,7 @@ router.get('/:id/foods', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   Meal.findOne({
     where: {id: req.params.id},
-    include: [
-      {model: Food, through: {attributes: []}}
-    ]
+    include: [{model: Food, through: {attributes: []}}]
   }).then(meal => {
     if(meal){
       res.status(200).send(JSON.stringify(meal));
@@ -35,9 +33,20 @@ router.get('/:id/foods', (req, res) => {
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
+
+router.post('/:meal/foods/:food', (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  MealFood.create({
+    MealId: req.params.meal,
+    FoodId: req.params.food
+  })
+  .then(food => res.status(201).send(JSON.stringify(food)))
+  .catch(error => res.status(500).send(JSON.stringify(error)));
+});
+
 router.delete('/:meal_id/foods/:id', (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  MealFoods.destroy({
+  MealFood.destroy({
     where: {
       MealId: req.params.meal_id,
       FoodId: req.params.id

@@ -126,6 +126,13 @@ afterAll(() => {
         expect(rsp.body.error).toBe('Meal with ID(9999) not found.');
       });
     });
+
+    test('POST /api/v1/meals/:meal/foods/:food', () => {
+      return request(app).post('/api/v1/meals/1/foods/4')
+      .then(rsp => {
+        expect(rsp.status).toBe(201);
+      });
+    });
   });
 
   test('DELETE /api/v1/meals/:meal_id/foods/:id', () => {
