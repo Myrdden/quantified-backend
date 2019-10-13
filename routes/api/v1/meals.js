@@ -33,6 +33,7 @@ router.get('/:id/foods', (req, res) => {
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
+
 router.post('/:meal/foods/:food', (req, res) => {
   res.setHeader("Content-Type", "application/json");
   MealFood.create({
@@ -43,5 +44,22 @@ router.post('/:meal/foods/:food', (req, res) => {
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
+router.delete('/:meal_id/foods/:id', (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  MealFood.destroy({
+    where: {
+      MealId: req.params.meal_id,
+      FoodId: req.params.id
+    }
+  })
+    .then(row => {
+      if (row == 1) {
+        res.status(204).send()
+      } else {
+        res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      }
+    })
+    .catch(error => res.status(500).send({error}));
+})
 
 module.exports = router;

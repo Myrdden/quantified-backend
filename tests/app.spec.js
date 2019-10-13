@@ -134,4 +134,18 @@ afterAll(() => {
       });
     });
   });
+
+  test('DELETE /api/v1/meals/:meal_id/foods/:id', () => {
+    return request(app).delete('/api/v1/meals/1/foods/2')
+    .then(rsp => {
+      expect(rsp.status).toBe(204);
+    });
+  });
+
+  test('DELETE /api/v1/foods/:id Sad', () => {
+    return request(app).delete('/api/v1/meals/1/foods/192809')
+    .then(rsp => {
+      expect(rsp.status).toBe(404);
+    });
+  });
 })
