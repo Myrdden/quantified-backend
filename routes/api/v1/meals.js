@@ -33,11 +33,11 @@ router.get('/:id/foods', (req, res) => {
   .catch(error => res.status(500).send(error));
 });
 
-router.post('/:meal/foods/:food', (req, res) => {
+router.post('/:meal_id/foods/:id', (req, res) => {
   res.setHeader("Content-Type", "application/json");
   MealFood.create({
     MealId: req.params.meal,
-    FoodId: req.params.food
+    FoodId: req.params.id
   })
   .then(food => res.status(201).send(food))
   .catch(error => res.status(500).send(error));
