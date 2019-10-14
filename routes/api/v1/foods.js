@@ -45,13 +45,21 @@ router.patch('/:id', (req, res) => {
 
 router.post("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  Food.create({
-    name: req.body.name,
-    calories: req.body.calories,
-  })
-  .then(food => res.status(201).send(JSON.stringify(food)))
-  .catch(error => res.status(500).send(JSON.stringify(error)));
-});
+  if (req.body.name == null){
+    res.status(500).send("Name cannot be empty")
+  } else if (req.body.calories == null) {
+    res.status(500).send("Calories cannot be empty")
+  } else {
+    Food.create({
+      name: req.body.name,
+      calories: req.body.calories,
+    })
+    .then(food => res.status(201).send(food))
+    .catch(error => {
+      res.status(500).send(error)
+    });
+  }
+})
 
 router.delete('/:id', (req, res) => {
   res.setHeader("Content-Type", "application/json");
