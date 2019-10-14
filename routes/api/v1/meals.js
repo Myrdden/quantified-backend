@@ -13,9 +13,9 @@ router.get('/', (req, res) => {
     ]
   })
   .then(meals => {
-    res.status(200).send(JSON.stringify(meals));
+    res.status(200).send(meals);
   })
-  .catch(error => res.status(500).send(JSON.stringify(error)));
+  .catch(error => res.status(404).send(error));
 });
 
 router.get('/:id/foods', (req, res) => {
@@ -25,12 +25,12 @@ router.get('/:id/foods', (req, res) => {
     include: [{model: Food, through: {attributes: []}}]
   }).then(meal => {
     if(meal){
-      res.status(200).send(JSON.stringify(meal));
+      res.status(200).send(meal);
     } else {
-      res.status(404).send(JSON.stringify({error: "Meal with ID(" + req.params.id + ") not found."}));
+      res.status(404).send({error: "Meal with ID(" + req.params.id + ") not found."});
     }
   })
-  .catch(error => res.status(500).send(JSON.stringify(error)));
+  .catch(error => res.status(500).send(error));
 });
 
 
@@ -40,8 +40,8 @@ router.post('/:meal/foods/:food', (req, res) => {
     MealId: req.params.meal,
     FoodId: req.params.food
   })
-  .then(food => res.status(201).send(JSON.stringify(food)))
-  .catch(error => res.status(500).send(JSON.stringify(error)));
+  .then(food => res.status(201).send(food))
+  .catch(error => res.status(500).send(error));
 });
 
 router.delete('/:meal_id/foods/:id', (req, res) => {
@@ -56,7 +56,7 @@ router.delete('/:meal_id/foods/:id', (req, res) => {
       if (row == 1) {
         res.status(204).send()
       } else {
-        res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+        res.status(404).send({error: "Food with ID(" + req.params.id + ") not found."});
       }
     })
     .catch(error => res.status(500).send({error}));
