@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   .then(meals => {
     res.status(200).send(meals);
   })
-  .catch(error => res.status(500).send(error));
+  .catch(error => res.status(404).send(error));
 });
 
 router.get('/:id/foods', (req, res) => {
