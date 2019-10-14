@@ -44,16 +44,13 @@ afterAll(() => {
     });
   });
 
-  describe('POST /api/v1/foods', () => {
-    test('User should post to db and api key returned', () => {
-      return request(app).post('/api/v1/foods')
-      .send({ "food": { "name": "icecream", "calories": 450} })
-      .set('Accept', 'application/json')
-      .then(res => {
-        expect(function(res){
-          res.body.food = "icecream";
-        expect(res.status).toBe(201)});
-      });
+  test('POST /api/v1/foods', () => {
+    return request(app).post('/api/v1/foods')
+    .send({ "food": { "name": "icecream", "calories": 450} })
+    .then(res => {
+      expect(function(res){
+        res.body.food = "icecream";
+      expect(res.status).toBe(201)});
     });
   });
 
@@ -108,6 +105,14 @@ afterAll(() => {
       })
     });
   })
+
+  test('GET /api/v1/meals Sad', () => {
+    return request(app).get('/api/v1/mealsss')
+    .then(rsp => {
+      expect(rsp.status).toBe(404);
+      expect(rsp.body.error).toBe(undefined);
+    });
+  });
 
   describe("Meals", () => {
     test('GET /api/v1/meals/:id/foods Happy', () => {
