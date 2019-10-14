@@ -7,10 +7,10 @@ router.get("/", (req, res) => {
 
   Food.findAll()
   .then(foods => {
-    res.status(200).send(JSON.stringify(foods));
+    res.status(200).send(foods);
   })
   .catch(error => {
-    res.status(500).send(JSON.stringify(error));
+    res.status(500).send(error);
   })
 });
 
@@ -19,9 +19,9 @@ router.get('/:id', (req, res) => {
   Food.findOne({where: {id: req.params.id}})
   .then(food => {
     if(food){
-      res.status(200).send(JSON.stringify(food));
+      res.status(200).send(food);
     } else {
-      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      res.status(404).send({error: "Food with ID(" + req.params.id + ") not found."});
     }
   })
   .catch(error => res.status(500).send(JSON.stringify(error)));
@@ -35,9 +35,9 @@ router.patch('/:id', (req, res) => {
     }, {where: {id: req.params.id}, returning: true})
   .then(([row, [food]]) => {
     if (row == 1) {
-      res.status(200).send(JSON.stringify(food));
+      res.status(200).send(food);
     } else {
-      res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+      res.status(404).send({error: "Food with ID(" + req.params.id + ") not found."});
     }
   })
   .catch(error => res.status(500).send(JSON.stringify(error)));
@@ -46,9 +46,9 @@ router.patch('/:id', (req, res) => {
 router.post("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   if (req.body.name == null){
-    res.status(500).send("Name cannot be empty")
+    res.status(500).send({error: "Name cannot be empty"})
   } else if (req.body.calories == null) {
-    res.status(500).send("Calories cannot be empty")
+    res.status(500).send({error: "Calories cannot be empty"})
   } else {
     Food.create({
       name: req.body.name,
@@ -70,7 +70,7 @@ router.delete('/:id', (req, res) => {
       if (row == 1) {
         res.status(204).send()
       } else {
-        res.status(404).send(JSON.stringify({error: "Food with ID(" + req.params.id + ") not found."}));
+        res.status(404).send({error: "Food with ID(" + req.params.id + ") not found."});
       }
     })
     .catch(error => res.status(500).send({error}));
