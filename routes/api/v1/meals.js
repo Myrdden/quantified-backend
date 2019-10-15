@@ -89,7 +89,7 @@ router.get('/most_popular_food', (req, res) => {
       }
     })
     .then(food => {
-      res.status(201).send(food)
+      res.status(200).send(food)
     })
   })
   .catch(error => res.status(500).send({error}));
