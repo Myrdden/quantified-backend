@@ -6,7 +6,7 @@ const Food = models.Food;
 const MealFood = models.MealFoods;
 
 const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
+  host: process.env.HOST,
   dialect: 'postgres',
   dialectOptions: {
     ssl: true
