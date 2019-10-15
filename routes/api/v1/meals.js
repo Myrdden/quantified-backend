@@ -71,28 +71,19 @@ router.delete('/:meal_id/foods/:id', (req, res) => {
     .catch(error => res.status(500).send({error}));
 })
 
-router.get('/most_popular_food', (req, res) => {
-  res.setHeader("Content-Type", "application/json");
 
-  MealFood.findAll({
+router.get('/most_popular_food', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
+  let countedFoods = await MealFood.findAll({
     attributes:
-      ['FoodId', [Sequelize.fn('count', Sequelize.col('FoodId')),'count']],
-      group : ['MealFoods.FoodId'],
-      raw: true,
-      order: sequelize.literal('count DESC LIMIT 1')
-  })
-  .then(mostPopular => {
-    console.log(mostPopular)
-    Food.findOne({
-      where: {
-        id: mostPopular[0].FoodId
-      }
-    })
-    .then(food => {
-      res.status(200).send(food)
-    })
-  })
-  .catch(error => res.status(500).send({error}));
-})
+    ['FoodId', [Sequelize.fn('count', Sequelize.col('FoodId')), 'count']],
+    group: ['MealFoods.FoodId'],
+    raw: true,
+    order: sequelize.literal('count DESC LIMIT 1')
+  });
+  let mostPopular = await Food.findOne({where: {id: countedFoods[0].FoodId}});
+  res.status(200).send(mostPopular);
+});
 
 module.exports = router;
