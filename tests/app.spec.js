@@ -107,7 +107,7 @@ afterAll(() => {
   })
 
   test('GET /api/v1/meals Sad', () => {
-    return request(app).get('/api/v1/mealsss')
+    return request(app).get('/api/v1/meals/..')
     .then(rsp => {
       expect(rsp.status).toBe(404);
       expect(rsp.body.error).toBe(undefined);
@@ -153,4 +153,13 @@ afterAll(() => {
       expect(rsp.status).toBe(404);
     });
   });
+
+  test('GET /api/v1/meals/most_popular_food', () => {
+    return request(app).get('/api/v1/meals/most_popular_food')
+    .then(rsp => {
+      expect(rsp.status).toBe(200);
+      expect(Object.keys(rsp.body)).toContain('name');
+      expect(Object.keys(rsp.body)).toContain('calories');
+    })
+  })
 })
