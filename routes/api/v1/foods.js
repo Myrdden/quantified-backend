@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
   .catch(error => res.status(500).send(JSON.stringify(error)));
 });
 
-router.patch('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   Food.update(
     {name: req.body.name,
