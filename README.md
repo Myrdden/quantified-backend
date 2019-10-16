@@ -14,10 +14,14 @@ Quantified Self allows users to create foods and meals to keep track of calories
 - [Jori Peterson](https://github.com/JoriPeterson)
 
 
-### Tech Stack List
+### Built Using
 
-
-
+* Express 4.16.1
+* Node.js 10.16.3
+* PostgreSQL Database
+* Sequelize
+* Jest
+* TravisCI
 
 ### Initial Setup
 
