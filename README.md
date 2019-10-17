@@ -8,20 +8,6 @@ Quantified Self allows users to create foods and meals to keep track of calories
 
 [Click Here to see the Quantified Self Project Board](https://github.com/Myrdden/quantified-backend/projects/1)
 
-### Core Contributors
-
-- [Aurie Gochenour](https://github.com/Myrdden)
-- [Jori Peterson](https://github.com/JoriPeterson)
-
-
-### Built Using
-
-* Express 4.16.1
-* Node.js 10.16.3
-* PostgreSQL Database
-* Sequelize
-* Jest
-* TravisCI
 
 ### Initial Setup
 
@@ -49,7 +35,7 @@ For the frontend version:
 
 Here are endpoints and example requests/responses below:
 
-For all foods:
+* For all foods:
 `GET /api/v1/foods`
 
 Example Response:
@@ -67,7 +53,7 @@ Example Response:
 }]
 ```
 
-For all meals:
+* For all meals:
 `GET /api/v1/meals`
 
 Example Response:
@@ -161,7 +147,7 @@ Example Response:
 ]
 ```
 
-For a single food:
+* For a single food:
 `GET /api/v1/food/:id`
 
 Example Response:
@@ -174,7 +160,7 @@ Example Response:
 }
 ```
 
-For a single meal with its foods:
+* For a single meal with its foods:
 `GET /api/v1/meals/:meal_id/foods`
 
 Example Response:
@@ -203,7 +189,7 @@ Example Response:
 }
 ```
 
-To add a food:
+* To add a food:
 `POST /api/v1/foods`
 
 Example Request:
@@ -220,7 +206,7 @@ Example Response:
 }
 ```
 
-To add a food to a meal:
+* To add a food to a meal:
 `POST /api/v1/meals/:meal_id/food/:id`
 
 Example Response:
@@ -230,7 +216,7 @@ Example Response:
 }
 ```
 
-To update food:
+* To update food:
 `PATCH /api/v1/food/:id`
 
 Example Request:
@@ -247,17 +233,17 @@ Example Response:
 }
 ```
 
-To delete food:
+* To delete food:
 `DELETE /api/v1/food/:id`
 
 If successful, this request will return a 204 status code
 
-To remove a food from a meal:
+* To remove a food from a meal:
 `DELETE /api/v1/meal/:meal_id/food/:id`
 
 If successful, this request will return a 204 status code
 
-To retrieve most popular food across all meals:
+* To retrieve most popular food across all meals:
 `GET /api/v1/meals/most_popular_food`
 
 Example Response:
@@ -276,6 +262,20 @@ Example Response:
 
 ![quantified_self schema](/qs_schema_diagram.png?raw=true "Quantified Self")
 
+### Core Contributors
+
+- [Aurie Gochenour](https://github.com/Myrdden)
+- [Jori Peterson](https://github.com/JoriPeterson)
+
+
+### Built Using
+
+* Express 4.16.1
+* Node.js 10.16.3
+* PostgreSQL Database
+* Sequelize
+* Jest
+* TravisCI
 
 ### How to Contribute
 
