@@ -54,8 +54,8 @@ afterAll(() => {
     });
   });
 
-  test('PATCH /api/v1/foods/:id Happy', () => {
-    return request(app).patch('/api/v1/foods/1')
+  test('PUT /api/v1/foods/:id Happy', () => {
+    return request(app).put('/api/v1/foods/1')
     .send({name: 'bleh'})
     .then(rsp => {
       expect(rsp.status).toBe(200);
