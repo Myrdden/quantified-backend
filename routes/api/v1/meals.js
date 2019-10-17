@@ -1,8 +1,17 @@
 const router = require('express').Router();
 const models = require('../../../models');
+const Sequelize = require('sequelize');
 const Meal = models.Meal;
 const Food = models.Food;
 const MealFood = models.MealFoods;
+
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: process.env.HOST,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  },
+});
 
 router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -61,5 +70,20 @@ router.delete('/:meal_id/foods/:id', (req, res) => {
     })
     .catch(error => res.status(500).send({error}));
 })
+
+
+router.get('/most_popular_food', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
+  let countedFoods = await MealFood.findAll({
+    attributes:
+    ['FoodId', [Sequelize.fn('count', Sequelize.col('FoodId')), 'count']],
+    group: ['MealFoods.FoodId'],
+    raw: true,
+    order: sequelize.literal('count DESC LIMIT 1')
+  });
+  let mostPopular = await Food.findOne({where: {id: countedFoods[0].FoodId}});
+  res.status(200).send(mostPopular);
+});
 
 module.exports = router;
