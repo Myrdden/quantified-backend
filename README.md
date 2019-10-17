@@ -41,10 +41,10 @@ Tests for quantified-backend are built using Jest. To run the test suite run:
 As a user, you can get all foods or meals or request a single food or meal and its foods by ID. You can also create, update or delete foods, as well as add or remove certain foods to/from meals. An additional endpoint has been added to find the most popular food across all meals.
 
 For the backend version:
-[Click Here to use Quantified Self](http://this-quantified-backend.herokuapps.com/)
+[Click Here to use Quantified Self](https://this-quantified-backend.herokuapp.com/)
 
 For the frontend version:
-[Click Here to use Quantified Self](http://this-quantified-self.herokuapps.com/)
+[Click Here to use Quantified Self](https://this-quantified-self.herokuapp.com/)
 
 
 Here are endpoints and example requests/responses below:
